@@ -3,6 +3,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
  Authentication= require('./models/authentication.js');
+ Multiplication= require('./models/multiplication.js');
+ HotelRegister= require('./models/hotelRegistration.js');
  var cors = require('cors')
  cors({ credentials: true, origin: true })
  app.use(cors())
@@ -20,7 +22,7 @@ var app = express();
      useMongoClient: true
      /* other options */
  });
- app.post('/api/authentication', function (request, response) {
+ app.post('/authentication', function (request, response) {
     response.header('Access-Control-Allow-Origin', "*");
     var data = {
         username: request.body.username,
@@ -37,7 +39,7 @@ var app = express();
         }
     })
 })
-app.post('/api/login', function (request, response) {
+app.post('/login', function (request, response) {
     Authentication.findOne({ username: request.body.username }, function (err, username) {
         if (err) {
             console.log("username err", err)
@@ -49,17 +51,17 @@ app.post('/api/login', function (request, response) {
             return response.status(404).send()
         }
 
-            Authentication.findOne({ password: request.body.password }, function (err, password) {
-                if (err) {
-                    console.log("password", err)
-                    return response.status(500).send(err)
-                }
-                if (!password) {
-                    return response.status(404).send()
-                }
-                console.log("password", password)
-                return response.status(200).send(password)
-            })
+        Authentication.findOne({ password: request.body.password }, function (err, get) {
+            if (err) {
+                console.log("get", err)
+                return response.status(500).send(err)
+            }
+            if (!get) {
+                return response.status(404).send()
+            }
+            console.log("Hey ", get.username)
+            return response.status(200).send(get.username)
+        })
     });
 });
 //create get request to mlab from server
@@ -75,19 +77,16 @@ app.get('/getData', function (req, res) {
         }
     });
 })
-// When successfully connected
 mongoose.connection.on('connected to mongodb', function () {
-    console.log('Mongoose default connection open to ');
+    console.log('Connection estalished');
 });
 
-// If the connection throws an error
 mongoose.connection.on('error', function (err) {
-    console.log('Mongoose default connection error: ' + err);
+    console.log('NO connection : ' + err);
 });
 
-// When the connection is disconnected
 mongoose.connection.on('disconnected', function () {
-    console.log('Mongoose default connection disconnected');
+    console.log('DB  connection failed');
 });
 var port = process.env.PORT || 8000;
 app.listen(port, function () {
