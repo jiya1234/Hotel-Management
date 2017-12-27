@@ -1,11 +1,9 @@
 const User = require('../models/user'); // Import User Model Schema
-const jwt = require('jsonwebtoken'); // Compact, URL-safe means of representing claims to be transferred between two parties.
+const jwt = require('jsonwebtoken'); 
 const config = require('../config/database'); // Import database configuration
 
 module.exports = (router) => {
-  /* ==============
-     Register Route
-  ============== */
+
   router.post('/register', (req, res) => {
     // Check if email was provided
     if (!req.body.email) {
@@ -64,9 +62,7 @@ module.exports = (router) => {
     }
   });
 
-  /* ============================================================
-     Route to check if user's email is available for registration
-  ============================================================ */
+
   router.get('/checkEmail/:email', (req, res) => {
     // Check if email was provided in paramaters
     if (!req.params.email) {
@@ -88,9 +84,6 @@ module.exports = (router) => {
     }
   });
 
-  /* ===============================================================
-     Route to check if user's username is available for registration
-  =============================================================== */
   router.get('/checkUsername/:username', (req, res) => {
     // Check if username was provided in paramaters
     if (!req.params.username) {
@@ -113,9 +106,7 @@ module.exports = (router) => {
     }
   });
 
-  /* ========
-  LOGIN ROUTE
-  ======== */
+
   router.post('/login', (req, res) => {
     // Check if username was provided
     if (!req.body.username) {
@@ -150,9 +141,7 @@ module.exports = (router) => {
     }
   });
 
-  /* ================================================
-  MIDDLEWARE - Used to grab user's token from headers
-  ================================================ */
+
   router.use((req, res, next) => {
     const token = req.headers['authorization']; // Create token found in headers
     // Check if token was found in headers
@@ -163,34 +152,16 @@ module.exports = (router) => {
       jwt.verify(token, config.secret, (err, decoded) => {
         // Check if error is expired or invalid
         if (err) {
-          res.json({ success: false, message: 'Token invalid: ' + err }); // Return error for token validation
+          res.json({ success: false, message: 'Token invalid: ' + err }); 
         } else {
-          req.decoded = decoded; // Create global variable to use in any request beyond
-          next(); // Exit middleware
+          req.decoded = decoded; 
+          next(); 
         }
       });
     }
   });
 
-  /* ===============================================================
-     Route to get user's profile data
-  =============================================================== */
-  router.get('/profile', (req, res) => {
-    // Search for user in database
-    User.findOne({ _id: req.decoded.userId }).select('username email').exec((err, user) => {
-      // Check if error connecting
-      if (err) {
-        res.json({ success: false, message: err }); // Return error
-      } else {
-        // Check if user was found in database
-        if (!user) {
-          res.json({ success: false, message: 'User not found' }); // Return error, user was not found in db
-        } else {
-          res.json({ success: true, user: user }); // Return success, send user object to frontend for profile
-        }
-      }
-    });
-  });
+ 
 
-  return router; // Return router object to main index.js
+  return router; 
 }
