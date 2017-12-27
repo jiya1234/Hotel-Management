@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="col-md-12">
+    <h1>Hotel Payment Card(For room and food)</h1>
+      <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">Card Number</th>
+        <th class="text-center">Name On Card</th>
+        <th class="text-center">Expiration Date</th>
+        <th class="text-center">Zip/Postal</th>
+        <th class="text-center">Delete/Edit Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.CardNo }}</td>
+        <td>{{ product.NameOnCard }}</td>
+        <td>{{ product.Expiration }}</td>
+        <td>{{ product.ZipPostal }}</td>
+        <td>
+          <button class="btn btn-info"
+          (click)="showEditProductForm(product)">
+         <i class="fa fa-edit"></i>Edit
+</button>
+<button class="btn btn-danger"
+         (click)="removeProduct(product)">Delete
+         <i class="fa fa-minus"></i>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+
+<button class="btn btn-success"
+ (click)="showAddProductForm()">Add<i class="fa fa-plus"></i></button>>
+  <br />
+  <br />
+
+  <form *ngIf="productForm">
+    <h2>Add Payment Card</h2>
+    <p>Card No: <input type="text"
+                           name="id"
+                           [(ngModel)]="newProduct.id" /></p>
+    <p>Name On Card: <input type="text"
+                                 name="name"
+                                 [(ngModel)]="newProduct.name" /></p>
+    <p>Expiration Date: <input type="text"
+                                          name="description"
+                                          [(ngModel)]="newProduct.description" /></p>
+    <p>Zip/Postal: <input type="text"
+                                name="price"
+                                [(ngModel)]="newProduct.price" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="saveProduct(newProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelNewProduct()">Cancel</button>
+    </p>
+   </form>
+
+    <form *ngIf="editProductForm">
+    <h2>Edit Payment Deatils</h2>
+    <p>Card No: <input type="text"
+                         name="id"
+                           [(ngModel)]="editedProduct.id" /></p>
+    <p>Name On Card: <input type="text"
+                                 name="name"
+                                 [(ngModel)]="editedProduct.name" /></p>
+    <p>Expiration: <input type="text"
+                                          name="description"
+                                          [(ngModel)]="editedProduct.description" /></p>
+    <p>Zip/Postal: <input type="text"
+                                name="price"
+                                [(ngModel)]="editedProduct.price" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="updateProduct(editedProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelEdits()">Cancel</button>
+    </p>
+   </form>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="col-md-12">
+    <h1>House Keepers</h1>
+      <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">House Keeper CNIC</th>
+        <th class="text-center">Housekeeper Name</th>
+        <th class="text-center">Gender</th>
+        <th class="text-center">Mobile No</th>
+    
+        <th class="text-center">Delete/Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.HousekeeperCNIC }}</td>
+        <td>{{ product.Name }}</td>
+        <td>{{ product.Gender }}</td>
+        <td>{{ product.MobileNo }}</td>
+       
+        <td>
+          <button class="btn btn-info"
+                        (click)="showEditProductForm(product)">
+                       <i class="fa fa-edit"></i>Edit
+              </button>
+          <button class="btn btn-danger"
+                       (click)="removeProduct(product)">Delete
+                       <i class="fa fa-minus"></i>
+            </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-success"
+               (click)="showAddProductForm()">Add<i class="fa fa-plus"></i></button>
+  <br />
+  <br />
+
+  <form *ngIf="productForm">
+    <h2>Add New HouseKeeper</h2>
+    <p>Housekeeper CNIC: <input type="text"
+                           name="HousekeeperCNIC"
+                           [(ngModel)]="newProduct.HousekeeperCNIC" /></p>
+    <p>Housekeeper Name: <input type="text"
+                                 name="Name"
+                                 [(ngModel)]="newProduct.Name" /></p>
+    <p>Gender: <input type="text"
+                                          name="Gender"
+                                          [(ngModel)]="newProduct.Gender" /></p>
+    <p>Mobile Number: <input type="text"
+                                name="MobileNo"
+                                [(ngModel)]="newProduct.MobileNo" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="saveProduct(newProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelNewProduct()">Cancel</button>
+    </p>
+   </form>
+
+    <form *ngIf="editProductForm">
+    <h2>Edit Housekeeper Details</h2>
+    <p>Housekeeper CNIC: <input type="text"
+                           name="HousekeeperCNIC"
+                           [(ngModel)]="editedProduct.HousekeeperCNIC" /></p>
+    <p>HouseKeeper Name: <input type="text"
+                                 name="Name"
+                                 [(ngModel)]="editedProduct.Name" /></p>
+    <p>Gender: <input type="text"
+                                          name="Gender"
+                                          [(ngModel)]="editedProduct.Gender" /></p>
+    <p>Mobile No: <input type="text"
+                                name="MobileNo"
+                                [(ngModel)]="editedProduct.MobileNo" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="updateProduct(editedProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelEdits()">Cancel</button>
+    </p>
+   </form>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="col-md-12">
+    <h1>Add New Reservation(Guest Details)</h1>
+      <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">Reservation ID</th>
+        <th class="text-center">Guest Name</th>
+        <th class="text-center">No Of Guests</th>
+        <th class="text-center">Total Amount For Payment</th>
+        <th class="text-center">Arrival Date</th>
+        <th class="text-center">Departure Date</th>
+          <th class="text-center">Guest Created At</th>
+        <th class="text-center">DeleteGuest/Disapprove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.ReservationId }}</td>
+        <td>{{ product.Guestname }}</td>
+        <td>{{ product.NoOfGuests }}</td>
+        <td>{{ product.TotalAmount }}</td>
+        <td>{{ product.ArrivalDate}}</td>
+        <td>{{ product.DepartureDate}}</td>
+        <td>{{ date | date }}</td>
+        <td>
+          <button class="btn btn-info"
+          (click)="showEditProductForm(product)">
+         <i class="fa fa-edit"></i>Edit
+</button>
+<button class="btn btn-danger"
+         (click)="removeProduct(product)">Delete
+         <i class="fa fa-minus"></i>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+
+<button class="btn btn-success"
+ (click)="showAddProductForm()">Add<i class="fa fa-plus"></i></button>
+  <br />
+  <br />
+
+  <form *ngIf="productForm">
+    <h2>Add New Reservation</h2>
+    <p>Reservation ID: <input type="text"
+                           name="ReservationId"
+                           [(ngModel)]="newProduct.ReservationId" /></p>
+    <p>Guest Name: <input type="text"
+                                 name="Guestname"
+                                 [(ngModel)]="newProduct.Guestname" /></p>
+    <p>No Of Guest: <input type="text"
+                                          name="NoOfGuests"
+                                          [(ngModel)]="newProduct.NoOfGuests" /></p>
+    <p>Total Amount: <input type="text"
+                                            name="TotalAmount"
+                                            [(ngModel)]="newProduct.TotalAmount" /></p>
+        
+    <p>Arrival Date: <input type="text"
+                                name="ArrivalDate"
+                                [(ngModel)]="newProduct.ArrivalDate" /></p>
+                               
+   <p>Departure Date: <input type="text"
+                                  name="DepartureDate"
+                                  [(ngModel)]="newProduct.DepartureDate" /></p>
+                                
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="saveProduct(newProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelNewProduct()">Cancel</button>
+    </p>
+   </form>
+
+    <form *ngIf="editProductForm">
+    <h2>Edit Current Reservation</h2>
+    <p>Reservation ID: <input type="text"
+                           name="ReservationId"
+                           [(ngModel)]="editedProduct.ReservationId" /></p>
+    <p>Guest Name: <input type="text"
+                                 name="Guestname"
+                                 [(ngModel)]="editedProduct.Guestname" /></p>
+    <p>No Of Guests: <input type="text"
+                                          name="NoOfGuests"
+                                          [(ngModel)]="editedProduct.NoOfGuests" /></p>
+    <p>Total Price: <input type="text"
+                                name="TotalAmount"
+                                [(ngModel)]="editedProduct.TotalAmount" /></p>
+                                <p>Arrival Date: <input type="text"
+                                  name="ArrivalDate"
+                                  [(ngModel)]="newProduct.ArrivalDate" /></p>
+                                 
+     <p>Departure Date: <input type="text"
+                                    name="DepartureDate"
+                                    [(ngModel)]="newProduct.DepartureDate" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="updateProduct(editedProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelEdits()">Cancel</button>
+    </p>
+   </form>
+  </div>
+</div>

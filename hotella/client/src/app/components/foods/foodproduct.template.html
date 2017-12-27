@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="col-md-12">
+    <h1>Food Ordered list</h1>
+      <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">Guest ID</th>
+        <th class="text-center">Guest Name</th>
+        <th class="text-center">Foot Ordered By the Guest</th>
+        <th class="text-center">Food Price</th>
+        <th class="text-center">Cancel/Modify Order</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.Reservationid }}</td>
+        <td>{{ product.Guestname }}</td>
+        <td>{{ product.FoodProduct }}</td>
+        <td>{{ product.Foodprice }}</td>
+        <td>
+          <button class="btn btn-info"
+          (click)="showEditProductForm(product)">
+         <i class="fa fa-edit"></i>Edit
+</button>
+<button class="btn btn-danger"
+         (click)="removeProduct(product)">Delete
+         <i class="fa fa-minus"></i>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+
+<button class="btn btn-success"
+ (click)="showAddProductForm()">Add<i class="fa fa-plus"></i></button>
+  <br />
+  <br />
+
+  <form *ngIf="productForm">
+    <h2>Add New Order?</h2>
+    <p>Guest ID: <input type="text"
+                           name="Reservationid"
+                           [(ngModel)]="newProduct.Reservationid" /></p>
+    <p>Guest Name: <input type="text"
+                                 name="Guestname"
+                                 [(ngModel)]="newProduct.Guestname" /></p>
+    <p>Food Ordered By the Guest: <input type="text"
+                                          name="FoodProduct"
+                                          [(ngModel)]="newProduct.FoodProduct" /></p>
+    <p>FoodPrice: <input type="text"
+                                name="Foodprice"
+                                [(ngModel)]="newProduct.Foodprice" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="saveProduct(newProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelNewProduct()">Cancel</button>
+    </p>
+   </form>
+
+    <form *ngIf="editProductForm">
+    <h2>Edit Food Product Details</h2>
+    <p>Guest ID: <input type="text"
+                           name="Reservationid"
+                           [(ngModel)]="editedProduct.Reservationid" /></p>
+    <p>Guest Name: <input type="text"
+                                 name="Guestname"
+                                 [(ngModel)]="editedProduct.Guestname" /></p>
+    <p>Food Ordered By the Guest: <input type="text"
+                                          name="FoodProduct"
+                                          [(ngModel)]="editedProduct.FoodProduct" /></p>
+    <p>Food Price: <input type="text"
+                                name="Foodprice"
+                                [(ngModel)]="editedProduct.Foodprice" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="updateProduct(editedProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelEdits()">Cancel</button>
+    </p>
+   </form>
+  </div>
+</div>

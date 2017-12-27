@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="col-md-12">
+    <h1>Add Rooms</h1>
+      <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">Room No</th>
+        <th class="text-center">Room Type</th>
+        <th class="text-center">Floor No</th>
+        <th class="text-center">Room Price</th>
+        <th class="text-center">Delete/Modify</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.RoomNo }}</td>
+        <td>{{ product.RoomType }}</td>
+        <td>{{ product.FloorNo }}</td>
+        <td>{{ product.Roomprice | currency:'USD':true:'1.0-2' }}</td>
+        <td>
+          <button class="btn btn-info"
+          (click)="showEditProductForm(product)">
+         <i class="fa fa-edit"></i>Edit
+</button>
+<button class="btn btn-danger"
+         (click)="removeProduct(product)">Delete
+         <i class="fa fa-minus"></i>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+
+<button class="btn btn-success"
+ (click)="showAddProductForm()">Add<i class="fa fa-plus"></i></button>
+  <br />
+  <br />
+
+  <form *ngIf="productForm">
+    <h2>Add Another Room</h2>
+    <p>Room No: <input type="text"
+                           name="RoomNo"
+                           [(ngModel)]="newProduct.RoomNo" /></p>
+    <p>Room Type: <input type="text"
+                                 name="RoomType"
+                                 [(ngModel)]="newProduct.RoomType" /></p>
+    <p>Floor No: <input type="text"
+                                          name="FloorNo"
+                                          [(ngModel)]="newProduct.FloorNo" /></p>
+    <p>Room Price: <input type="text"
+                                name="Roomprice"
+                                [(ngModel)]="newProduct.Roomprice" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="saveProduct(newProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelNewProduct()">Cancel</button>
+    </p>
+   </form>
+
+    <form *ngIf="editProductForm">
+    <h2>Edit Room Details</h2>
+    <p>Room No: <input type="text"
+                           name="RoomNo"
+                           [(ngModel)]="editedProduct.RoomNo" /></p>
+    <p>Room Type: <input type="text"
+                                 name="RoomType"
+                                 [(ngModel)]="editedProduct.RoomType" /></p>
+    <p>Floor No: <input type="text"
+                                          name="FloorNo"
+                                          [(ngModel)]="editedProduct.FloorNo" /></p>
+    <p>Room Price: <input type="text"
+                                name="Roomprice"
+                                [(ngModel)]="editedProduct.Roomprice" /></p>
+    <p>
+      <button type="button"
+                   class="btn btn-primary"
+                   (click)="updateProduct(editedProduct)">Submit</button>
+      <button type="button"
+                   class="btn btn-warning"
+                   (click)="cancelEdits()">Cancel</button>
+    </p>
+   </form>
+  </div>
+</div>
